@@ -1,0 +1,7 @@
+<h1>Editing Document</h1>
+
+<%#= render 'form', document: @document %>
+<%= image_tag serve_document_path(@document) %>
+
+<%= link_to 'Show', @document %> |
+<%= link_to 'Back', documents_path %>
