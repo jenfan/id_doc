@@ -12,16 +12,6 @@ class DocumentsController < ApplicationController
   def show
   end
 
-  def serve
-    @document = Document.find(params[:id])
-    send_data(
-      @document.data,
-      :type => @document.mime_type,
-      :filename => "#{@document.name}.jpg",
-      :disposition => "inline"
-    )
-  end
-
   # GET /documents/new
   def new
     @document = Document.new
@@ -34,11 +24,14 @@ class DocumentsController < ApplicationController
   # POST /documents
   # POST /documents.json
   def create
-    @document = Document.new(document_params)
-    if document_params[:data]
-      @document.data      = document_params[:data].read
-      @document.name  = document_params[:data].original_filename
-      @document.mime_type = document_params[:data].content_type
+    ActiveRecord::Base.transaction do
+      @doc_file = DocFile.create!(
+        data: document_params[:data].read,
+        filename: document_params[:data].original_filename,
+        mime_type: document_params[:data].content_type,
+      )
+      require 'pry'; binding.pry;
+      @document = Document.create!(file: @doc_file)
     end
 
     respond_to do |format|

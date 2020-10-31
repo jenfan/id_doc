@@ -1,0 +1,2 @@
+class DocFile < ApplicationRecord
+end

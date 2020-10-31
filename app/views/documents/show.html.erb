@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Task:</strong>
+  <strong>Doc:</strong>
   <%= @document.task_id %>
+  <%= image_tag doc_file_path(@document) %>
 </p>
 
 <%= link_to 'Edit', edit_document_path(@document) %> |
