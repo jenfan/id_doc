@@ -10,7 +10,10 @@
   </head>
 
   <body>
-    <%= link_to 'админка', admin_root_path %>
+    <div class="header">
+      <%= link_to 'на главную', root_path %>
+      <%= link_to 'админка', admin_root_path %>
+    </div>
     <%= yield %>
   </body>
 </html>

@@ -1,10 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Doc:</strong>
-  <%= @document.task_id %>
-  <%= image_tag doc_file_path(@document) %>
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Create info</th>
+      <th>Get info</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <%= image_tag doc_file_path(@document), size: '500x500' %>
+      </td>
+      <td>
+        <pre>
+          <%= JSON.pretty_generate(@document.task.create_response) %>
+        </pre>
+      </td>
+      <td>
+        <pre>
+          <%= JSON.pretty_generate(@document.task.get_response) %>
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_document_path(@document) %> |
 <%= link_to 'Back', documents_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_31_182308) do
+ActiveRecord::Schema.define(version: 2020_10_31_191551) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -35,18 +35,19 @@ ActiveRecord::Schema.define(version: 2020_10_31_182308) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.string "task_id"
+    t.integer "task_id"
     t.integer "doc_file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_documents_on_task_id"
   end
 
   create_table "tasks", force: :cascade do |t|
     t.string "external_id"
-    t.integer "document_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["document_id"], name: "index_tasks_on_document_id"
+    t.json "create_response"
+    t.json "get_response"
   end
 
 end

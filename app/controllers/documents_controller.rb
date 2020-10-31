@@ -24,15 +24,7 @@ class DocumentsController < ApplicationController
   # POST /documents
   # POST /documents.json
   def create
-    ActiveRecord::Base.transaction do
-      @doc_file = DocFile.create!(
-        data: document_params[:data].read,
-        filename: document_params[:data].original_filename,
-        mime_type: document_params[:data].content_type,
-      )
-      require 'pry'; binding.pry;
-      @document = Document.create!(file: @doc_file)
-    end
+    @document = CreateDocument.call(document_params)
 
     respond_to do |format|
       if @document.save
