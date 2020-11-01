@@ -16,9 +16,9 @@
       <tr>
         <td><%= document.file.filename %></td>
         <td><%= document.created_at %></td>
-        <td><%= link_to 'Show', document %></td>
+        <td><%= link_to 'Результат', document %></td>
         <td><%#= link_to 'Edit', edit_document_path(document) %></td>
-        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Удалить', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'Создать', new_document_path %>
+<%= link_to 'Новый документ', new_document_path %>

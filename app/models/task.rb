@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   end
 
   def status
-    get_response['response']['task']['state'] rescue nil
+    get_response['response']['task']['state']
   end
 
   def get_response
@@ -14,7 +14,7 @@ class Task < ApplicationRecord
   end
 
   def result
-    @result ||= get_response['response']['result'] rescue { }
+    @result ||= get_response['response']['result'] || {}
   end
 
   def time
@@ -26,6 +26,16 @@ class Task < ApplicationRecord
   end
 
   def label
-    ClassificationType.find_by(slug: result['label'])&.name
+    label_translation_dict[result['label']] rescue 'not ready'
+  end
+
+  def label_translation_dict
+    {
+     'doctype_tech_passport' => 'БТИ',
+     'doctype_land_lease_contract' => 'ЗУ',
+     'doctype_facility_into_operation_permission' => 'Разрешение на ввод',
+     'doctype_building_permit' => 'Разрешение на строительство',
+     'doctype_architectural_urban_planning_solutions' => 'Свид. АГР',
+    }
   end
 end

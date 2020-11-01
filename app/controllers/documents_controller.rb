@@ -79,10 +79,10 @@ class DocumentsController < ApplicationController
     end
 
     def wait_for_success
-      @time_limit = 10
+      @count_limit = 2
       @counter = 0
-      while @success == nil && @counter < @time_limit do
-        sleep 1
+      while @success == nil && @counter < @count_limit do
+        sleep 3
         @counter += 1
         status = @document.task.status
         @success = true if status == 'SUCCESS'

@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<table>
+<table style="padding: 10px">
   <thead>
     <tr>
       <th>File</th>
@@ -14,14 +14,16 @@
         <iframe src=<%=doc_file_path(@document) %> width="100%" height="1000">
         </iframe>
       </td>
-      <td>
+      <td width="600">
         <pre>
-          Pages: <%= JSON.pretty_generate(@document.task.pages) %>
+          Страницы: <%= JSON.pretty_generate(@document.task.get_response) %>
         </pre>
         <p>
-          Label: <b><%= @document.category.name %></b>
+          Тип классификации: <b><%= @document.category.name %></b>
         <br>
-          Time: <b><%= @document.task.time %></b>
+          Тип документа: <b><%= @document.task.label %></b>
+        <br>
+          Время: <b><%= @document.task.time %></b>
         </p>
       </td>
     </tr>

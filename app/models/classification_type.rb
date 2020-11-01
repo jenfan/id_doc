@@ -1,4 +1,4 @@
 class ClassificationType < ApplicationRecord
-  scope :base, -> { where(base: true) }
-  scope :manual, -> { where(base: false) }
+  scope :base, -> { where.not(user_label: true) }
+  scope :user_label, -> { where(user_label: true) }
 end

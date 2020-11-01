@@ -23,7 +23,7 @@
 
   <div class="field" id='document_manual_category_div'>
     <%= form.label 'пользовательский тип классификации' %>
-    <%= form.collection_select(:manual_category, ClassificationType.manual.all, :slug, :name, {:prompt => 'Выберите тип'}) %>
+    <%= form.collection_select(:manual_category, ClassificationType.user_label.all, :slug, :name, {:prompt => 'Выберите тип'}) %>
   </div>
 
   <br>

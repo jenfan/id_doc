@@ -18,11 +18,7 @@ class AnalyzeApi
     request(
       http_method: :post,
       endpoint: 'classification',
-      params: {
-        file: Faraday::UploadIO.new(file.path, document.file.mime_type),
-        class_mode: is_base_operation ? category.slug : 'user',
-        user_label: is_base_operation ? '' : category.slug,
-      },
+      params: post_params(file),
     )
   ensure
     file.close
@@ -38,12 +34,23 @@ class AnalyzeApi
 
   private
 
-  private
+  def post_params(file)
+    if is_base_operation
+      { }
+    elsif category.user_label
+      { user_label: category.slug }
+    else
+      { class_mode: category.slug }
+    end.merge(
+      file: Faraday::UploadIO.new(file.path, document.file.mime_type)
+    )
+  end
 
   def client
     @_client ||= Faraday.new(API_ENDPOINT) do |client|
       client.request :url_encoded
       client.request :multipart
+      # client.request.options.timeout = 20
       client.adapter Faraday.default_adapter
       client.headers['Content-Type'] = 'multipart/form-data'
     end
