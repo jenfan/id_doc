@@ -12,13 +12,16 @@
 
 ActiveRecord::Schema.define(version: 2020_11_01_051205) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
-    t.integer "resource_id"
+    t.bigint "resource_id"
     t.string "author_type"
-    t.integer "author_id"
+    t.bigint "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -44,7 +47,7 @@ ActiveRecord::Schema.define(version: 2020_11_01_051205) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.integer "task_id"
+    t.bigint "task_id"
     t.integer "doc_file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -56,8 +59,8 @@ ActiveRecord::Schema.define(version: 2020_11_01_051205) do
     t.string "external_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.json "create_response"
-    t.json "get_response"
+    t.jsonb "create_response"
+    t.jsonb "get_response"
   end
 
 end
