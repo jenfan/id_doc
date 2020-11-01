@@ -29,7 +29,9 @@ Rails.application.configure do
   end
 
   # for ngrok
-  config.hosts << "71f2169b3c30.ngrok.io"
+  # config.hosts << /.*ngrok.io/
+  # Allow requests from any domain
+  Rails.application.config.hosts = nil
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
