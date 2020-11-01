@@ -79,7 +79,7 @@ class DocumentsController < ApplicationController
     end
 
     def wait_for_success
-      @count_limit = 2
+      @count_limit = 4
       @counter = 0
       while @success == nil && @counter < @count_limit do
         sleep 3

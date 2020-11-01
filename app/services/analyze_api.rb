@@ -50,7 +50,6 @@ class AnalyzeApi
     @_client ||= Faraday.new(API_ENDPOINT) do |client|
       client.request :url_encoded
       client.request :multipart
-      # client.request.options.timeout = 20
       client.adapter Faraday.default_adapter
       client.headers['Content-Type'] = 'multipart/form-data'
     end
