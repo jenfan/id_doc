@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_31_191551) do
+ActiveRecord::Schema.define(version: 2020_11_01_030217) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 2020_10_31_191551) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
+  create_table "classification_types", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.boolean "base"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "doc_files", force: :cascade do |t|
     t.binary "data", null: false
     t.string "filename"
@@ -39,6 +47,7 @@ ActiveRecord::Schema.define(version: 2020_10_31_191551) do
     t.integer "doc_file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "category_id"
     t.index ["task_id"], name: "index_documents_on_task_id"
   end
 

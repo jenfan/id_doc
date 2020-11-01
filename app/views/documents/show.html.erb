@@ -4,29 +4,29 @@
   <thead>
     <tr>
       <th>File</th>
-      <th>Create info</th>
-      <th>Get info</th>
+      <th>Result</th>
     </tr>
   </thead>
 
   <tbody>
     <tr>
       <td>
-        <%= image_tag doc_file_path(@document), size: '500x500' %>
+        <iframe src=<%=doc_file_path(@document) %> width="100%" height="1000">
+        </iframe>
       </td>
       <td>
         <pre>
-          <%= JSON.pretty_generate(@document.task.create_response) %>
+          Pages: <%= JSON.pretty_generate(@document.task.pages) %>
         </pre>
-      </td>
-      <td>
-        <pre>
-          <%= JSON.pretty_generate(@document.task.get_response) %>
-        </pre>
+        <p>
+          Label: <b><%= @document.category.name %></b>
+        <br>
+          Time: <b><%= @document.task.time %></b>
+        </p>
       </td>
     </tr>
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_document_path(@document) %> |
+<%#= link_to 'Edit', edit_document_path(@document) %> |
 <%= link_to 'Back', documents_path %>

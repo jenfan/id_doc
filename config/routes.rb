@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
-  resources :documents
+  resources :documents, except: [:edit]
   resources :doc_files, only: [:show]
 
   root to: 'documents#index'

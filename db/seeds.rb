@@ -1,9 +1,47 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-# Task.create external_id:
+[{
+  "name":"классификация по первой странице",
+  "slug":"first_page",
+  "base":true,
+},
+{
+  "name":"базовая классификация",
+  "slug":"basic",
+  "base":true,
+},
+{
+  "name":"предопределенный пользователем",
+  "slug":"user",
+  "base":true,
+},
+{
+  "name":"Свидетельство об утверждении",
+  "slug":"certificate_of_approval",
+  "base":false,
+},
+{
+  "name":"архитектурно-градостроительного решения",
+  "slug":"architectural_urban_planning_solutions",
+  "base":false,
+},
+{
+  "name":"Договор аренды земельного участка",
+  "slug":"land_lease_contract",
+  "base":false,
+},
+{
+  "name":"Технический паспорт",
+  "slug":"technichal_passport",
+  "base":false,
+},
+{
+  "name":"Разрешение на строительство",
+  "slug":"building_permit",
+  "base":false,
+},
+{
+  "name":"Разрешение на ввод объекта в эксплуатацию",
+  "slug":"facility_into_operation_permission",
+  "base":false,
+}].each do |classification_type_params|
+  ClassificationType.create classification_type_params
+end

@@ -1,21 +1,31 @@
 class AnalyzeApi
-  API_ENDPOINT = 'http://79.175.11.66:60045/api/v1/'.freeze
+  API_ENDPOINT = 'http://79.175.11.66:60025/api/v1/'.freeze
 
-  attr_reader :document
+  attr_reader :document, :is_base_operation, :category
 
   def initialize(document)
     @document = document
+    @category = document.category
+    @is_base_operation = @category.base == true
   end
 
   def post
-    file = Tempfile.new
-    file.write("hello world")
+    file = Tempfile.new(['hello', '.pdf'], :encoding => 'utf-8')
+    file.open
+    file.write(document.file.data.force_encoding('utf-8').encode)
+    file.rewind
+
     request(
       http_method: :post,
       endpoint: 'classification',
-      params: { file: Faraday::UploadIO.new(file.path, document.file.mime_type) },
+      params: {
+        file: Faraday::UploadIO.new(file.path, document.file.mime_type),
+        class_mode: is_base_operation ? category.slug : 'user',
+        user_label: is_base_operation ? '' : category.slug,
+      },
     )
   ensure
+    file.close
     file.unlink
   end
 
@@ -41,7 +51,6 @@ class AnalyzeApi
 
   def request(http_method:, endpoint:, params: {})
     response = client.public_send(http_method, endpoint, params)
-    return 404 if response.status == 404
     JSON.parse(response.body)
   rescue Faraday::ConnectionFailed
     { connection: :failed, error: "апи недоступно" }
@@ -49,5 +58,3 @@ class AnalyzeApi
     { error: e.message }
   end
 end
-
-# '011f3d34-1a8b-4fe5-9bd9-f84dc60b9f9a'
